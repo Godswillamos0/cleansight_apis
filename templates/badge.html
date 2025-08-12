@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CleanSight</title>
+
+    <link rel="icon" href="#" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: 'Manrope', sans-serif;
+        background-color: #f5fff9;
+      }
+
+      .animate-name {
+        animation: fadeInSlideUp 1.2s ease-out both;
+      }
+
+      @keyframes fadeInSlideUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .bg-primary {
+        background-color: #0f5132;
+      }
+
+      .text-primary {
+        color: #0f5132;
+      }
+
+      .border-primary {
+        border-color: #0f5132;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="flex justify-between items-center px-4 py-3 md:px-6 border-b border-primary bg-white shadow-sm">
+      <!-- Logo -->
+      <div class="flex items-center gap-2 animate-name">
+        <svg class="w-6 h-6 text-primary" viewBox="0 0 48 48" fill="currentColor">
+          <path d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z"/>
+        </svg>
+        <h1 class="text-xl font-extrabold text-primary tracking-wide">CleanSight</h1>
+      </div>
+
+      <!-- Nav & Profile -->
+      <div class="flex items-center gap-4">
+        <!-- Notification Icon -->
+        <button class="relative">
+          <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path d="M15 17h5l-1.405-1.405C18.79 14.79 18 13.42 18 12V9a6 6 0 10-12 0v3c0 1.42-.79 2.79-1.595 3.595L3 17h5m4 0v1a2 2 0 104 0v-1m-4 0h4"></path>
+          </svg>
+          <span class="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+        </button>
+
+        <!-- Profile Image -->
+        <img src="https://media.licdn.com/dms/image/v2/D4D03AQFvvITSMefWwA/profile-displayphoto-shrink_200_200/B4DZcHnIwcHMAg-/0/1748179390747?e=1758153600&v=beta&t=N6_SAfMm2xsMFXCs7fhOzNIv3v68aEYQaTeXa-_rLh8" class="w-9 h-9 rounded-full object-cover" alt="User profile" />
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="flex-1 p-4 md:p-10 max-w-6xl mx-auto w-full">
+      <div class="text-[28px] md:text-[32px] font-bold text-primary mb-6 text-center md:text-left animate-name">
+        Rewards
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="bg-gray-200 rounded-full h-3 w-full mb-2">
+        <div class="bg-primary h-full rounded-full" style="width: 60%"></div>
+      </div>
+      <p class="text-sm text-gray-600 mb-6">60% to next reward</p>
+
+      <!-- Badges -->
+      <section>
+        <h2 class="text-xl font-bold text-primary mb-4">Badges</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          <!-- Badge 1 -->
+          <div class="text-center bg-white rounded-lg p-4 shadow hover:shadow-md transition">
+            <div class="aspect-square bg-cover bg-center rounded-full w-24 mx-auto mb-3" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCd21o820N8gvf4XYf6SkshIVohibGCQh9wPvdk90jk2ZBNkN_FOkMQu4HBoJ_vHv6zuMsO-REOnDnCM_84z8iRwEk3TRsDvBFxOSN5oGtfVH4N8yvHZ2KOCvpgyD-0AQ1mhctWutd_xmx8gJfRu60M5KxWwIXpeHCAoFJ-x_hHlIIeEot0xpOqFJEeDc4QEAKBpYX7EJ1mgVsH0sj2TD2NpxyvGIy4pQqCKP9Tl-F21urZK9ZONNQB4eUWHD4_O_dnzwENOhr9Rtua');"></div>
+            <p class="font-medium text-primary">First Task</p>
+            <p class="text-sm text-gray-500">Completed your first cleanup</p>
+          </div>
+
+          <!-- Badge 2 -->
+          <div class="text-center bg-white rounded-lg p-4 shadow hover:shadow-md transition">
+            <div class="aspect-square bg-cover bg-center rounded-full w-24 mx-auto mb-3" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBd1kHN0dzXXi2V4NB18tcgxk4Xsml5Z2TgxgxJkePV7vVQ6rSqXubaKtklcJqhlyaV9yghoN0WqO3NEf69LNp9OBB74KnJbB0EbMfbdveEi_XRHDQ_Q6_L2KKOSwh_8zU3mvgaKtggdB6U-436AqY0YKsWJLkoy7LWw0CjajRdFuBzOjTugTl5GZHj10b6x0AirucwytyVsMo_wENOukazYvnHlj7sgPYH4aCVCDsDAkhjWozk8GO6cJVge6mwZ8mejwEZPyLom78e');"></div>
+            <p class="font-medium text-primary">5 Tasks</p>
+            <p class="text-sm text-gray-500">Great job! You're on a streak</p>
+          </div>
+
+          <!-- Badge 3 -->
+          <div class="text-center bg-white rounded-lg p-4 shadow hover:shadow-md transition">
+            <div class="aspect-square bg-cover bg-center rounded-full w-24 mx-auto mb-3" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBwvkPNllV2Vaij4ASnxEmQzkogzCoXtoQMKZU83A30bzeVctwxi5JT4nF6JisQyKbT7k4oZqRiJQHETFZ_vYsHGRaA8tB-c1GO4FiSJzHGttSuQzlaTQf3z9lLho9nlQu-wJ0TEj-j_D6SVpqpuNA44vp-Q8Q4i5DxiH4f_ipPngZOj7sA580ILJFyQG6TYDE8Fmpwsl_5zeks-BCcbPcq10GpWBHC6Hsrl7r4I9H5tmD-9G5siYMhMDz-LSFN03SrxXuJe94HmRzQ');"></div>
+            <p class="font-medium text-primary">Before/After Pro</p>
+            <p class="text-sm text-gray-500">Uploaded quality evidence</p>
+          </div>
+
+          <!-- Badge 4 -->
+          <div class="text-center bg-white rounded-lg p-4 shadow hover:shadow-md transition">
+            <div class="aspect-square bg-cover bg-center rounded-full w-24 mx-auto mb-3" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDNMnNiJ880mFs7WiwF7pn0FZxSXwrByeaTVru90ZbKLsupc48SKXoYY3mmghD8FzaODlgJJKfijPbDWf_evPMo2Be2SA_wdcH1NBnEI7aSaWS8OO2cfnyzSHJK5MW2x1qpJfk7pclQ67Zxbz-oFehEv3ESIcngs1_5DR2s1_hzfffFV3Bce25mDzGnHhhIcUQ3oNyHMcWo55Z1fpNqpNsL6kOlLkGCbX8uaVyycrgNno7AjQNbcEJdbQq_OmjPs2Nfxa7wtbbCpoOp');"></div>
+            <p class="font-medium text-primary">Community Hero</p>
+            <p class="text-sm text-gray-500">Top contributor this month</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Mobile Nav -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-primary flex justify-around py-3 md:hidden z-10">
+      <a href="#" class="text-primary text-sm font-medium">Home</a>
+      <a href="#" class="text-primary text-sm font-medium">Tasks</a>
+      <a href="#" class="text-primary text-sm font-medium">Rewards</a>
+      <a href="#" class="text-primary text-sm font-medium">Profile</a>
+    </nav>
+  </body>
+</html>

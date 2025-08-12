@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CleanSight - Nunsi</title>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("nunsiTitle").classList.add("animate-bounce");
+    });
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .tab-active {
+      @apply border-b-4 border-green-500 font-semibold text-green-600;
+    }
+    body {
+      font-family: 'Manrope', sans-serif;
+      background-color: #f5fff9;
+    }
+
+    .animate-name {
+      animation: fadeInSlideUp 1.2s ease-out both;
+    }
+
+    @keyframes fadeInSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .bg-primary {
+      background-color: #0f5132;
+    }
+
+    .text-primary {
+      color: #0f5132;
+    }
+
+    .border-primary {
+      border-color: #0f5132;
+    }
+  </style>
+</head>
+<body class="bg-[#f0f3f4] min-h-screen text-gray-800">
+
+<!-- Header -->
+<header class="flex justify-between items-center px-4 py-3 md:px-6 border-b border-primary bg-white shadow-sm">
+  <div class="flex items-center gap-2 animate-name">
+    <svg class="w-6 h-6 text-primary" viewBox="0 0 48 48" fill="currentColor">
+      <path d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2183 14.2173 24 4Z"/>
+    </svg>
+    <h1 class="text-xl font-extrabold text-primary tracking-wide">CleanSight</h1>
+  </div>
+  <div class="flex items-center gap-4">
+    <button class="relative">
+      <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M15 17h5l-1.405-1.405C18.79 14.79 18 13.42 18 12V9a6 6 0 10-12 0v3c0 1.42-.79 2.79-1.595 3.595L3 17h5m4 0v1a2 2 0 104 0v-1m-4 0h4"></path>
+      </svg>
+      <span class="absolute top-0 right-0 block w-2 h-2 bg-red-500 rounded-full ring-2 ring-white"></span>
+    </button>
+    <img src="https://media.licdn.com/dms/image/v2/D4D03AQFvvITSMefWwA/profile-displayphoto-shrink_200_200/B4DZcHnIwcHMAg-/0/1748179390747?e=1758153600&v=beta&t=N6_SAfMm2xsMFXCs7fhOzNIv3v68aEYQaTeXa-_rLh8"
+         class="w-9 h-9 rounded-full object-cover" alt="User profile" />
+  </div>
+</header>
+
+<!-- Title -->
+<header class="text-center py-6 bg-white shadow">
+  <h1 id="nunsiTitle" class="text-4xl font-bold text-green-600 transition duration-700 ease-in-out">Nunsi</h1>
+</header>
+
+<!-- Tabs -->
+<main class="p-4 max-w-md mx-auto">
+  <div class="flex justify-center mb-6">
+    <button id="beforeTab" class="px-4 py-2 border-b-4 text-sm tab-active" onclick="switchTab('before')">Before</button>
+    <button id="afterTab" class="px-4 py-2 border-b-4 text-sm text-gray-600" onclick="switchTab('after')">After</button>
+  </div>
+
+  <!-- BEFORE SECTION (Upload) -->
+  <section id="beforeSection">
+    <div class="space-y-4">
+      <input type="file" accept="image/*" class="w-full" id="beforeUpload" />
+      <p class="text-xs text-gray-500">Upload a photo of the area before cleaning.</p>
+    </div>
+  </section>
+
+  <!-- AFTER SECTION (Capture) -->
+  <section id="afterSection" class="hidden">
+    <div class="space-y-4">
+      <video id="video" autoplay class="w-full rounded-lg shadow"></video>
+      <canvas id="canvas" class="hidden"></canvas>
+      <img id="capturedImage" alt="Captured" class="hidden rounded-lg" />
+
+      <div class="flex justify-between">
+        <button onclick="startCamera()" class="bg-green-500 text-white px-4 py-2 rounded shadow">Start Camera</button>
+        <button onclick="captureImage()" class="bg-green-600 text-white px-4 py-2 rounded shadow">Capture</button>
+      </div>
+      <p class="text-xs text-gray-500">Capture the area after you've cleaned it.</p>
+    </div>
+  </section>
+
+  <!-- Verify -->
+  <div class="mt-6">
+    <button onclick="verifyCleanup()" class="bg-green-700 hover:bg-green-800 w-full py-3 text-white font-bold rounded shadow">
+      Verify Cleanup
+    </button>
+  </div>
+</main>
+
+<!-- Script -->
+<script>
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  const capturedImage = document.getElementById('capturedImage');
+
+  function startCamera() {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+      })
+      .catch(err => console.error('Camera error:', err));
+  }
+
+  function captureImage() {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    const dataUrl = canvas.toDataURL('image/png');
+    capturedImage.src = dataUrl;
+    capturedImage.classList.remove('hidden');
+  }
+
+  function switchTab(tab) {
+    const beforeTab = document.getElementById('beforeTab');
+    const afterTab = document.getElementById('afterTab');
+    const beforeSection = document.getElementById('beforeSection');
+    const afterSection = document.getElementById('afterSection');
+
+    if (tab === 'before') {
+      beforeTab.classList.add('tab-active');
+      afterTab.classList.remove('tab-active');
+      beforeSection.classList.remove('hidden');
+      afterSection.classList.add('hidden');
+    } else {
+      afterTab.classList.add('tab-active');
+      beforeTab.classList.remove('tab-active');
+      afterSection.classList.remove('hidden');
+      beforeSection.classList.add('hidden');
+    }
+  }
+
+  function verifyCleanup() {
+    const beforeUploaded = document.getElementById('beforeUpload').files[0];
+    const capturedAfter = capturedImage.src;
+
+    if (!beforeUploaded || !capturedAfter) {
+      alert('Please upload the "before" and capture the "after" images.');
+      return;
+    }
+
+    alert('Both images are ready. Verification logic goes here!');
+  }
+</script>
+</body>
+</html>
