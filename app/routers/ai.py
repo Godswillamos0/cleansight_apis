@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 from typing import Annotated
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException, File, UploadFile
-from models import Users, Tokens, Transactions
+from models import Users, Transactions
 from database import SessionLocal 
 from .auth import get_current_user
 from pathlib import Path
@@ -60,16 +60,13 @@ async def evaluate_cleanliness_endpoint(
         user_model = db.query(Users).filter(Users.id == user.get('id')).first()
         if not user_model:
             raise HTTPException(status_code=404, detail="User not found")
-        token_model = db.query(Tokens).filter(Tokens.owner_id == user.get('id')).first()
-        if not token_model:
-            raise HTTPException(status_code=404, detail="Tokens not found for user")
-        token_model.amount += total_score/10  # Assuming 10 tokens for each evaluation
-        db.add(token_model)
+        user_model.token_amount += total_score / 10  # Assuming 10 tokens for each evaluation
+        db.add(user_model)
         
         db.commit() 
         #Add a transaction record
         transaction = Transactions(
-        amount=token_model.amount,
+        amount=user_model.token_amount,
         owner_id=user.get('id'),
         type='earned',
         created_at=datetime.now(timezone.utc),

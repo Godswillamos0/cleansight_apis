@@ -7,16 +7,10 @@ class Users(Base):
     first_name = Column(String)
     last_name = Column(String)
     username = Column(String, unique=True)
+    token_amount = Column(Float, default=0.0)
     email = Column(String, unique=True)
     profile_picture = Column(String, nullable=True)
     hashed_password = Column(String)
-    
-    
-class Tokens(Base):
-    __tablename__ = 'tokens'
-    id=Column(Integer, primary_key=True)
-    owner_id = Column(Integer, ForeignKey('users.id'))
-    amount= Column(Float)
     
     
 class Transactions(Base):

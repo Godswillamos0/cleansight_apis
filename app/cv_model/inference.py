@@ -1,12 +1,23 @@
 from pathlib import Path
 from ultralytics import YOLO
+from huggingface_hub import hf_hub_download
 import supervision as sv
 import numpy as np
 
 BASE_DIR = Path(__file__).resolve().parent
 MODEL_PATH = BASE_DIR / "best.pt"
 
-model = YOLO("../cv_model/best.pt")
+# model = YOLO("../cv_model/best.pt")
+
+MODEL_PATH = Path(__file__).parent / "best.pt"
+if not MODEL_PATH.exists():
+    MODEL_PATH = hf_hub_download(
+        repo_id="amosgodswill00/cleansight",  # replace with your HF repo
+        filename="best.pt"
+    )
+
+# Load the YOLO model
+model = YOLO(str(MODEL_PATH))
 
 
 def run_inference(image_path, model=model):
